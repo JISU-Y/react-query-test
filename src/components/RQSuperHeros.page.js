@@ -1,5 +1,6 @@
 import React from "react"
-import useSuperHeroData from "../hooks/useSuperHeroData"
+import { Link } from "react-router-dom"
+import useSuperHeroesData from "../hooks/useSuperHeroesData"
 // import axios from "axios"
 // import { useQuery } from "react-query"
 
@@ -19,7 +20,7 @@ const RQSuperHeros = () => {
   //     } // options
   //   )
 
-  const { status, error, data, refetch } = useSuperHeroData()
+  const { status, error, data, refetch } = useSuperHeroesData()
 
   if (status === "loading") {
     return <h2>Loading...</h2>
@@ -35,12 +36,16 @@ const RQSuperHeros = () => {
     <div>
       <h2>RQSuperHeros</h2>
       <button onClick={refetch}>fetch Heroes</button>
-      {/* {data?.data.map((hero) => {
-        return <div key={hero.name}>{hero.name}</div>
-      })} */}
-      {data.map((heroName) => (
+      {data?.data.map((hero) => {
+        return (
+          <div key={hero.id}>
+            <Link to={`/rq-super-heros/${hero.id}`}>{hero.name}</Link>
+          </div>
+        )
+      })}
+      {/* {data.map((heroName) => (
         <div key={heroName}>{heroName}</div>
-      ))}
+      ))} */}
     </div>
   )
 }
